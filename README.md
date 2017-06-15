@@ -4,7 +4,7 @@ A simple higher order component for easy code splitting.
 
 ## Features
 
-* Supports `import()` (or `System.import()`)
+* Supports `import()`
 * Supports react-router v4
 * Ability to add `<LoadingComponent />`
 * Ability to Add `<ErrorComponent />`
