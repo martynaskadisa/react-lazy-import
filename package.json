@@ -5,7 +5,8 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "jest",
-    "build": "rimraf lib && tsc"
+    "build": "rimraf lib && tsc",
+    "prepublish": "rimraf lib && tsc"
   },
   "author": "Martynas Kadiša <kadisa.martynas@gmail.com>",
   "homepage": "https://github.com/martynaskadisa/react-lazy-import#readme",
