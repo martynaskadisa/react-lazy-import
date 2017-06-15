@@ -1,1 +1,1 @@
-export { default as createLazyComponentClass } from './createLazyComponentClass';
+export { default } from './createLazyContainer';

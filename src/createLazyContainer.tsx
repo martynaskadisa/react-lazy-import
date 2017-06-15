@@ -2,22 +2,23 @@ import * as React from 'react';
 
 type Loader = () => Promise<any>;
 
-type ReactComponent = React.ComponentClass<any> | React.SFC<any> | null;
+type ReactComponent<P> = React.ComponentClass<P> | React.SFC<P> | null;
 
-interface IState {
-  Component: ReactComponent;
-  ErrorComponent: ReactComponent;
-  LoadingComponent: ReactComponent;
+interface IState<P> {
+  Component: ReactComponent<P>;
+  ErrorComponent: ReactComponent<any>;
+  LoadingComponent: ReactComponent<any>;
   failed: boolean;
 }
 
-const createLazyComponentClass = (
+function createLazyContainer<P> (
   loader: Loader,
-  loadingComponent?: ReactComponent,
-  errorComponent?: ReactComponent
-) => (
-  class extends React.PureComponent<{}, IState> {
-    public state: IState = {
+  loadingComponent?: ReactComponent<{}>,
+  errorComponent?: ReactComponent<{}>
+) {
+  return class extends React.Component<{}, IState<P>> {
+    public static displayName = 'LazyContainer';
+    public state: IState<P> = {
         Component: null,
         ErrorComponent: errorComponent || null,
         LoadingComponent: loadingComponent || null,
@@ -27,8 +28,8 @@ const createLazyComponentClass = (
     public componentWillMount () {
       if (!this.state.Component) {
         loader()
-          .then(module => module.default)
-          .then((Component: ReactComponent) => this.setState({ Component }))
+          .then(module => module.default || module)
+          .then((Component: ReactComponent<P>) => this.setState({ Component }))
           .catch(err => {
             this.setState({ failed: true });
           });
@@ -39,10 +40,6 @@ const createLazyComponentClass = (
       const { Component, LoadingComponent, ErrorComponent, failed } = this.state;
 
       if (Component) {
-
-        /**
-         * Render our component with pass through props
-         */
         return (
           <Component {...this.props} />
         );
@@ -58,7 +55,7 @@ const createLazyComponentClass = (
 
       return null;
     }
-  } as React.ComponentClass<any>
-);
+  };
+}
 
-export default createLazyComponentClass;
+export default createLazyContainer;

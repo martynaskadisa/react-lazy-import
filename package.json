@@ -2,7 +2,7 @@
   "name": "react-lazy-import",
   "version": "0.0.2",
   "description": "",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "jest",
     "build": "rimraf lib && tsc"
