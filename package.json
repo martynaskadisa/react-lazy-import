@@ -1,7 +1,7 @@
 {
   "name": "react-lazy-import",
   "version": "0.1.0",
-  "description": "",
+  "description": "A simple higher order component for easy code splitting.",
   "main": "lib/index.js",
   "scripts": {
     "test": "jest",
@@ -17,6 +17,13 @@
     "url": "https://github.com/martynaskadisa/react-lazy-import/issues"
   },
   "license": "MIT",
+  "keywords": [
+    "react",
+    "lazy-loading",
+    "code-splitting",
+    "typescript",
+    "dynamic-import"
+  ],
   "peerDependencies": {
     "react": "*"
   },
