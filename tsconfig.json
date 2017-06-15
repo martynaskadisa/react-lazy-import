@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "declaration": true,
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitUseStrict": true,
+    "strictNullChecks": true,
+    "sourceMap": false,
+    "jsx": "react",
+    "typeRoots": ["node_modules/@types"],
+    "outDir": "lib",
+    "rootDir": "src"
+  },
+  "exclude": [
+    "node_modules",
+    "lib",
+    "src/**/__tests__/*"
+  ]
+}
