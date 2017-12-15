@@ -17,7 +17,8 @@ function createLazyContainer<P> (
   errorComponent?: ReactComponent<{}>
 ) {
   return class extends React.Component<{}, IState<P>> {
-    public static displayName = 'LazyContainer';
+    private isComponentMounted: boolean = false;
+    public static displayName: string = 'LazyContainer';
     public state: IState<P> = {
         Component: null,
         ErrorComponent: errorComponent || null,
@@ -26,14 +27,25 @@ function createLazyContainer<P> (
     };
 
     public componentWillMount () {
+      this.isComponentMounted = true;
+
       if (!this.state.Component) {
         loader()
           .then(module => module.default || module)
-          .then((Component: ReactComponent<P>) => this.setState({ Component }))
-          .catch(err => {
-            this.setState({ failed: true });
+          .then((Component: ReactComponent<P>) => {
+            if (this.isComponentMounted) {
+              this.setState({ Component });
+            }
+          }, () => {
+            if (this.isComponentMounted) {
+              this.setState({ failed: true });
+            }
           });
       }
+    }
+
+    public componentWillUnmount () {
+      this.isComponentMounted = false;
     }
 
     public render () {
