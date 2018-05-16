@@ -14,7 +14,8 @@ interface IState<P> {
 function createLazyContainer<P> (
   loader: Loader,
   loadingComponent?: ReactComponent<{}>,
-  errorComponent?: ReactComponent<{}>
+  errorComponent?: ReactComponent<{}>,
+  onLoad?: () => void
 ) {
   return class extends React.Component<{}, IState<P>> {
     private isComponentMounted: boolean = false;
@@ -34,7 +35,7 @@ function createLazyContainer<P> (
           .then(module => module.default || module)
           .then((Component: ReactComponent<P>) => {
             if (this.isComponentMounted) {
-              this.setState({ Component });
+              this.setState({ Component }, onLoad);
             }
           }, () => {
             if (this.isComponentMounted) {
