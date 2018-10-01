@@ -27,8 +27,6 @@ const App = () => {
 
 ## Complete example
 
-### JavaScript
-
 ```jsx
 // Greeter.jsx
 import React from 'react';
@@ -64,47 +62,10 @@ const App = () => {
 render(<App />, document.getElementById('app'));
 ```
 
-### TypeScript
-```jsx
-// Greeter.tsx ...
-```
-
-```jsx
-// App.tsx
-import * as React from 'react';
-import createLazyContainer from 'react-lazy-import';
-
-const Loading: React.SFC<{}> = () => <div>Loading...</div>;
-const Error: React.SFC<{}> = () => <div>Error!</div>;
-
-interface IGreeterProps {
-  name: string;
-}
-
-// TypeScript currently doesn't support `import()` 
-// so we need to use `System.import()` alias
-// This won't be needed in the future (TypeScript v2.4)
-declare const System: {
-  import: (path: string) => Promise<any>;
-};
-
-
-const Greeter = createLazyContainer<IGreeterProps>(() => System.import('./Greeter'), Loading, Error);
-
-const App = () => {
-  return (
-    <div>
-      My lazy component:
-      <Greeter name="Jason" />
-    </div>
-  );
-}
-```
 
 ### Usage with react-router
 
 ```jsx
-...
 
 import { Route, Switch } from 'react-router-dom';
 
@@ -128,9 +89,6 @@ class App extends React.Component {
     );
   }
 }
-
-...
-
 ```
 
 ## API
