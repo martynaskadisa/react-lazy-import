@@ -1,5 +1,7 @@
 # react-lazy-import
 
+# DEPRECATED: Please use `React.lazy` or `@loadable/component` which is a recommended solution by React team
+
 A simple higher order component for easy code splitting.
 
 ## Features
